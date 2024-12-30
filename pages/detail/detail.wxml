@@ -1,0 +1,71 @@
+<!--pages/detail/detail.wxml-->
+<view>
+	<mp-cells ext-class="my-cells" title="设备信息">
+		<mp-cell>
+			<view>站点ID</view>
+			<view slot="footer">{{loggerData.siteId}}</view>
+		</mp-cell>
+		<mp-cell>
+			<view>经度</view>
+			<view slot="footer">{{loggerData.longitude}}</view>
+		</mp-cell>
+		<mp-cell>
+			<view>纬度</view>
+			<view slot="footer">{{loggerData.latitude}}</view>
+		</mp-cell>
+		<mp-cell>
+			<view>海拔高程</view>
+			<view slot="footer">{{loggerData.heightAOD}}</view>
+		</mp-cell>
+		<mp-cell>
+			<view>创建时间</view>
+			<view slot="footer">{{loggerData.dateCreated}}</view>
+		</mp-cell>
+		<mp-cell>
+			<view>拥有者</view>
+			<view slot="footer">{{loggerData.loggerOwner}}</view>
+		</mp-cell>
+		<mp-cell>
+			<view>注释</view>
+			<view slot="footer">{{loggerData.SiteNotes}}</view>
+		</mp-cell>
+		<mp-cell>
+			<view>SMS号码</view>
+			<view slot="footer">{{loggerData.mobileNumber}}</view>
+		</mp-cell>
+		<mp-cell>
+			<view>序列号</view>
+			<view slot="footer">{{loggerData.serialNumber}}</view>
+		</mp-cell>
+		<mp-cell>
+			<view>软件版本</view>
+			<view slot="footer">{{loggerData.lastReportedVersion}}</view>
+		</mp-cell>
+		<mp-cell>
+			<view>上次呼入</view>
+			<view slot="footer">{{loggerData.dateLastMessageReceived}}</view>
+		</mp-cell>
+		<mp-cell>
+			<view>信号质量</view>
+			<view slot="footer">{{loggerData.signalStrength}}</view>
+		</mp-cell>
+		<mp-cell>
+			<view>电池电压</view>
+			<view slot="footer">{{batteryCondition}}V</view>
+		</mp-cell>
+		<mp-cell>
+			<view>声强</view>
+			<view slot="footer">{{Noise}}</view>
+		</mp-cell>
+		<mp-cell>
+			<view>频宽</view>
+			<view slot="footer">{{Spread}}</view>
+		</mp-cell>
+		<mp-cell>
+			<view>是否泄露</view>
+			<view class="{{Leak==='1'?'Leak':''}}" slot="footer">{{Leak==='1'?'泄露':'未泄露'}}</view>
+		</mp-cell>
+	</mp-cells>
+	<!-- <mp-cells ext-class="my-cells" title="设备参数">
+	</mp-cells> -->
+</view>

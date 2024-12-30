@@ -1,0 +1,48 @@
+<!--index.wxml-->
+<view class="scrollarea">
+	<!-- <view class="container">
+		{{datasource.loggers.summary['accountName']}}
+	</view> -->
+	<view class="chart-wrap">
+		<view class="canvas-wrap">
+			<basicchart wx:if="{{overdueTaskOption}}" option="{{overdueTaskOption}}"></basicchart>
+			<view class="legend">
+				<text class="legend-item legend-item-err">漏点数：{{leakNum}}</text>
+				<text class="legend-item legend-item-success">无漏点：{{loggerData.length-leakNum}}</text>
+			</view>
+		</view>
+		<view class="canvas-wrap">
+			<basicchart wx:if="{{overdueTaskOption2}}" option="{{overdueTaskOption2}}"></basicchart>
+			<view class="legend">
+				<text class="legend-item legend-item-err">漏点未分类：{{leakNum}}</text>
+				<text class="legend-item legend-item-doing">调查在进行中：0</text>
+				<text class="legend-item legend-item-wait">等待修复：0</text>
+				<text class="legend-item legend-item-clear">调查清除：0</text>
+			</view>
+		</view>
+	</view>
+	<view class="info">
+		<view class="info-item">
+			<view>
+				<mp-icon extClass="icon" icon="like" color="#000" size="{{25}}"></mp-icon>
+				<text>激活设备</text>
+			</view>
+			<text class="active-num">{{loggerData.length}}</text>
+		</view>
+		<view class="info-item">
+			<view>
+				<mp-icon extClass="icon" icon="report-problem" color="#000" size="{{25}}"></mp-icon>
+				<text>漏点数量</text>
+			</view>
+			<text class="active-num">{{leakNum}}</text>
+		</view>
+		<view class="info-item">
+			<view>
+				<mp-icon extClass="icon" icon="comment" color="#000" size="{{25}}"></mp-icon>
+				<text>最近24小时的新漏点</text>
+			</view>
+			<text class="active-num">{{last24LeakNum}}</text>
+		</view>
+	</view>
+</view>
+<tabbar current='0' />

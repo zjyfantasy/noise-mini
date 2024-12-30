@@ -1,0 +1,2 @@
+<!--components/tabbar/tabbar.wxml-->
+<mp-tabbar current="{{current}}" bindchange="handleChange" ext-class="tabbar" list="{{tabList}}"/>

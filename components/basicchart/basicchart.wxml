@@ -1,0 +1,4 @@
+<!--components/basicchart/basicchart.wxml-->
+<view class="canvas-wrap">
+  <ec-canvas wx:if="{{ecCurrent}}" ec="{{ ecCurrent }}"></ec-canvas>
+</view>

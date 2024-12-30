@@ -1,0 +1,15 @@
+<!--pages/report/report.wxml-->
+<view class="list">
+	<view class="list-item">
+		<text class="list-item-date">日期</text>
+		<text class="list-item-noise">声强</text>
+		<text class="list-item-spread">频宽</text>
+		<text class="list-item-leak">是否泄露</text>
+	</view>
+	<view class="list-item" wx:for="{{dataSource}}" wx:key="index">
+		<text class="list-item-date">{{item.date}}</text>
+		<text class="list-item-noise">{{item.c2noise/1000}}</text>
+		<text class="list-item-spread">{{item.c3spread/1000}}</text>
+		<text class="list-item-leak">{{item.c1leak>0?'泄露':'未泄露'}}</text>
+	</view>
+</view>

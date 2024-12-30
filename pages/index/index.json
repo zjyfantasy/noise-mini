@@ -1,0 +1,8 @@
+{
+	"usingComponents": {
+		"basicchart": "/components/basicchart/basicchart",
+		"mp-icon": "weui-miniprogram/icon/icon",
+		"tabbar": "/components/tabbar/tabbar"
+	},
+	"navigationBarTitleText": "主页"
+}

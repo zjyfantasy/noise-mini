@@ -1,0 +1,2 @@
+<!--pages/map/map.wxml-->
+<map id="myMap" style="width: 100%; height: 100vh;" latitude="{{latitude}}" longitude="{{longitude}}" markers="{{markers}}" show-location bindmarkertap="handleMarkerTab" bindlabeltap="handleMarkerTab"></map>

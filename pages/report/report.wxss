@@ -1,0 +1,22 @@
+/* pages/report/report.wxss */
+.list {
+	padding: 32rpx;
+}
+
+.list-item {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 12rpx;
+	border-bottom: 1px solid #a5a5a5;
+	font-size: 24rpx;
+}
+.list-item-date{
+	flex: 1;
+}
+.list-item-noise,
+.list-item-spread,
+.list-item-leak {
+	width: 120rpx;
+	text-align: left;
+}

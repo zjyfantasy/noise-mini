@@ -1,0 +1,33 @@
+<!--pages/login/login.wxml-->
+<view class="container">
+	<view class="logo_wrap">
+		<image class="logo1" src="https://t-vr.biaddti.com/v2/Datagate/Assets/Logos/logo.png" mode="aspectFit" />
+		<image class="logo2" src="https://t-vr.biaddti.com/v2/Datagate/Assets/Logos/almoslogo.GIF" mode="aspectFit" />
+	</view>
+	<input />
+
+	<div class="main">
+		<mp-form id="form" rules="{{rules}}" models="{{formData}}">
+			<mp-cells>
+				<label>
+					<mp-cell prop="username" title="用户名" ext-class="">
+						<input bindinput="formInputChange" data-field="username" class="weui-input" placeholder="请输入用户名" />
+					</mp-cell>
+				</label>
+				<label>
+					<mp-cell prop="password" title="密码" ext-class="">
+						<input password="true" bindinput="formInputChange" data-field="password" class="weui-input" placeholder="请输入密码" />
+					</mp-cell>
+				</label>
+			</mp-cells>
+		</mp-form>
+	</div>
+	<button class="weui-btn" type="primary" bindtap="submitForm">登录</button>
+</view>
+
+<!-- <mp-dialog title="test" show="{{true}}" bindbuttontap="tapDialogButton" buttons="{{buttons}}">
+    <view>test content</view>
+    <view>test content</view>
+    <view>test content</view>
+    <view>test content</view>
+</mp-dialog> -->
