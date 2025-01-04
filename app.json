@@ -1,11 +1,13 @@
 {
   "pages": [
-		"pages/index/index",
-		"pages/login/login",
+    "pages/index/index",
+    "pages/login/login",
     "pages/logs/logs",
     "pages/map/map",
     "pages/detail/detail",
-    "pages/report/report"
+    "pages/report/report",
+    "pages/recording/recording",
+    "pages/position/position"
   ],
   "window": {
     "navigationBarTextStyle": "black",

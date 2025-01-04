@@ -1,0 +1,29 @@
+<!--pages/position/position.wxml-->
+<view>
+	<mp-form id="form" rules="{{rules}}" models="{{formData}}">
+		<mp-cells>
+			<label>
+				<mp-cell title="站点id" value="{{loggerData.siteId}}"></mp-cell>
+			</label>
+			<label>
+				<mp-cell prop="latitude" title="经度" ext-class="">
+					<input bindinput="formInputChange" value="{{formData.latitude}}" data-field="latitude" class="weui-input" placeholder="请输入经度" />
+				</mp-cell>
+			</label>
+			<label>
+				<mp-cell prop="longitude" title="纬度" ext-class="">
+					<input bindinput="formInputChange" value="{{formData.longitude}}" data-field="longitude" class="weui-input" placeholder="请输入纬度" />
+				</mp-cell>
+			</label>
+		</mp-cells>
+	</mp-form>
+	<button class="weui-btn" type="default" bindtap="handleLocation">定位</button>
+
+	<button class="weui-btn" type="primary" bindtap="submitForm">更新</button>
+
+</view>
+<mp-half-screen-dialog bindbuttontap="buttontap" show="{{show}}" maskClosable="{{false}}" title="选择位置" buttons="{{buttons}}">
+	<view slot="desc">
+		<chooselocation wx:if="{{show}}" location="{{formData}}" bind:locationChange="handleLocationChange" />
+	</view>
+</mp-half-screen-dialog>

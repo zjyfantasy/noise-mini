@@ -1,7 +1,8 @@
 // pages/report/report.js
 import dayjs from 'dayjs'
 import {
-	getDataExportAPI
+	getDataExportAPI,
+	getRecordingsAPI
 } from '../../api/hwm';
 
 Page({
@@ -10,24 +11,86 @@ Page({
 	 * 页面的初始数据
 	 */
 	data: {
-		dataSource: []
+		dataSource: [],
+		end: dayjs().format('YYYY-MM-DD'),
+		startDate: dayjs().add(-1, 'year').format('YYYY-MM-DD'),
+		endDate: dayjs().format('YYYY-MM-DD'),
 	},
 
 	/**
 	 * 生命周期函数--监听页面加载
 	 */
 	onLoad(options) {
+		console.log(options)
+		const {
+			mobileNumber
+		} = options
+		this.setData({
+			mobileNumber
+		})
+		this.getDataExport();
+		this.getRecordings();
+	},
+
+	handleDateStart({
+		detail
+	}) {
+		this.setData({
+			startDate: detail.value
+		})
+	},
+	handleDateEnd({
+		detail
+	}) {
+		const {
+			startDate
+		} = this.data
+		const endDate = detail.value
+		const sub = dayjs(endDate).diff(startDate, 'day')
+		if (sub < 0) {
+			wx.showToast({
+				icon: "none",
+				title: '结束日期不能小于开始日期'
+			})
+			return
+		}
+		this.setData({
+			endDate: detail.value
+		})
+		this.getDataExport()
+	},
+
+	getDataExport() {
+		const {
+			mobileNumber,
+			startDate,
+			endDate
+		} = this.data
+		console.log(mobileNumber, startDate, endDate)
 		getDataExportAPI({
-			logger: '8613800142508',
-			period: 4
+			logger: mobileNumber,
+			period: 5,
+			startdate: startDate,
+			enddate: endDate,
 		}).then(res => {
 			const dataSource = res.map(item => ({
 				...item,
-				date: dayjs(item.datetime).format('YYYY年MM月DD日')
+				date: dayjs(item.datetime).format('YYYY年MM月DD日 HH:mm:ss')
 			}))
-			// console.log(data)
+			console.log(dataSource)
 			this.setData({
 				dataSource
+			})
+		})
+	},
+
+	getRecordings() {
+		getRecordingsAPI({
+			siteID: '5391'
+		}).then(res => {
+			console.log(res)
+			this.setData({
+				recordings: res
 			})
 		})
 	},

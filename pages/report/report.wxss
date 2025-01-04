@@ -11,12 +11,32 @@
 	border-bottom: 1px solid #a5a5a5;
 	font-size: 24rpx;
 }
-.list-item-date{
+
+.list-item-date {
 	flex: 1;
 }
+
 .list-item-noise,
 .list-item-spread,
 .list-item-leak {
 	width: 120rpx;
 	text-align: left;
+}
+
+.picker-wrap {
+	height: 96rpx;
+	display: flex;
+	/* justify-content: space-between; */
+	align-items: center;
+	box-sizing: border-box;
+	border: 1px solid #0de417;
+	border-radius: 48rpx;
+	padding: 12rpx;
+}
+
+picker {
+	flex: 1
+}
+.picker-label{
+	font-size: 24rpx;
 }

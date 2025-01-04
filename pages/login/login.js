@@ -8,11 +8,6 @@ Page({
 	 * 页面的初始数据
 	 */
 	data: {
-		buttons: [{
-			text: '取消'
-		}, {
-			text: '确认'
-		}],
 		rules: [{
 			name: 'username',
 			rules: {

@@ -16,18 +16,20 @@ Component({
 	 */
 	data: {
 		tabList: [{
-			iconPath: '/assets/images/home.png',
-			selectedIconPath: '/assets/images/home-selected.png',
-			text: '主页'
-		}, {
-			iconPath: '/assets/images/device.png',
-			selectedIconPath: '/assets/images/device-selected.png',
-			text: '设备'
-		}, {
-			iconPath: '/assets/images/record.png',
-			selectedIconPath: '/assets/images/record-selected.png',
-			text: '记录'
-		}]
+				iconPath: '/assets/images/home.png',
+				selectedIconPath: '/assets/images/home-selected.png',
+				text: '主页'
+			}, {
+				iconPath: '/assets/images/device.png',
+				selectedIconPath: '/assets/images/device-selected.png',
+				text: '设备'
+			}
+			// , {
+			// 	iconPath: '/assets/images/record.png',
+			// 	selectedIconPath: '/assets/images/record-selected.png',
+			// 	text: '记录'
+			// }
+		]
 	},
 
 	/**

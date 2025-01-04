@@ -1,0 +1,21 @@
+<!--pages/recording/recording.wxml-->
+<view class="list">
+	<view class="list-item">
+		<text class="list-item-date">日期</text>
+		<text class="list-item-operate">操作</text>
+	</view>
+	<view class="list-item" wx:for="{{dataSource}}" wx:key="index">
+		<text class="list-item-date">{{item.rst}}</text>
+		<button class="list-item-btn" type="primary" size="mini" data-item="{{item}}" bind:tap="handleRecording">查看录音</button>
+	</view>
+</view>
+
+<mp-dialog title="录音" show="{{isModalVisible}}" bindbuttontap="tapDialogButton" buttons="{{buttons}}">
+	<view class="radio-wrap">
+		<mp-icon wx:if="{{!playing}}" extClass="icon" icon="play" color="#000" size="{{40}}" bind:tap="playAudio"></mp-icon>
+		<mp-icon wx:if="{{playing}}" extClass="icon" icon="pause" color="#000" size="{{40}}" bind:tap="pauseAudio"></mp-icon>
+		<text class="time-wrap">0:{{currentTime}}</text>/
+		<text class="time-wrap">0:{{duration}}</text>
+		<slider min="0" max="{{duration}}" value="{{currentTime}}" block-size="12" bindchange="handleSliderChange" />
+	</view>
+</mp-dialog>

@@ -1,5 +1,18 @@
 <!--pages/report/report.wxml-->
 <view class="list">
+	<view class="picker-wrap">
+		<picker start="2020-01-01" end="{{end}}" value="{{startDate}}" mode="date" bindchange="handleDateStart">
+			<view class="picker">
+				<text class="picker-label">开始日期：</text>{{startDate}}
+			</view>
+		</picker>
+		<picker start="2020-01-01" end="{{end}}" value="{{endDate}}" mode="date" bindchange="handleDateEnd">
+			<view class="picker">
+				<text class="picker-label">结束日期：</text>{{endDate}}
+			</view>
+		</picker>
+	</view>
+
 	<view class="list-item">
 		<text class="list-item-date">日期</text>
 		<text class="list-item-noise">声强</text>

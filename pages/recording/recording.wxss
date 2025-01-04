@@ -1,0 +1,45 @@
+/* pages/recording/recording.wxss */
+.list {
+	padding: 32rpx;
+}
+
+.list-item {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 12rpx;
+	border-bottom: 1px solid #a5a5a5;
+	font-size: 24rpx;
+}
+
+.list-item-date {
+	flex: 1;
+}
+
+.list-item-btn {
+	font-size: 24rpx !important;
+}
+
+.list-item-operate {
+	width: 120rpx;
+	text-align: left;
+}
+
+video {
+	width: 400rpx;
+	height: 200rpx;
+}
+
+.radio-wrap {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+slider{
+	width: 100px;
+}
+
+.time-wrap{
+	width: 80rpx;
+}

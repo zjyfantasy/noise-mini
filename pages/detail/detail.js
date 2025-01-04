@@ -8,7 +8,14 @@ Page({
 	 * 页面的初始数据
 	 */
 	data: {
-		loggerData: {}
+		loggerData: {},
+		tabs: [{
+			label: '信息',
+			value: 'info'
+		}, {
+			label: '信息',
+			value: 'info'
+		}]
 	},
 
 	/**
@@ -45,7 +52,33 @@ Page({
 			})
 		})
 	},
-
+	handleHistory(e) {
+		const {
+			logger
+		} = e.target.dataset
+		console.log(logger)
+		wx.navigateTo({
+			url: `/pages/report/report?mobileNumber=${logger.mobileNumber}`,
+		})
+	},
+	handleRecording(e) {
+		const {
+			logger
+		} = e.target.dataset
+		console.log(logger)
+		wx.navigateTo({
+			url: `/pages/recording/recording?siteID=${logger.id}`,
+		})
+	},
+	handlePosition(e) {
+		const {
+			logger
+		} = e.target.dataset
+		console.log(logger)
+		wx.navigateTo({
+			url: `/pages/position/position?latitude=${logger.latitude}&longitude=${logger.longitude}&siteId=${logger.siteId}&mobileNumber=${logger.mobileNumber}`,
+		})
+	},
 	/**
 	 * 生命周期函数--监听页面初次渲染完成
 	 */

@@ -24,10 +24,3 @@
 	</div>
 	<button class="weui-btn" type="primary" bindtap="submitForm">登录</button>
 </view>
-
-<!-- <mp-dialog title="test" show="{{true}}" bindbuttontap="tapDialogButton" buttons="{{buttons}}">
-    <view>test content</view>
-    <view>test content</view>
-    <view>test content</view>
-    <view>test content</view>
-</mp-dialog> -->

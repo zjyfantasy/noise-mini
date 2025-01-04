@@ -1,0 +1,4 @@
+/* pages/position/position.wxss */
+.weui-btn {
+	margin-top: 100rpx;
+}

@@ -1,4 +1,18 @@
 /* pages/detail/detail.wxss */
+.container {
+	padding-bottom: env(safe-area-inset-bottom);
+}
+
 .Leak {
 	color: #f00;
+}
+
+.custom-tabs {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.btn {
+	margin-top: 40rpx;
 }

@@ -30,8 +30,8 @@ Page({
 			latitude: item.latitude,
 			longitude: item.longitude,
 			title: item.siteId,
-			width: 32,
-			height: 48,
+			// width: 32,
+			// height: 48,
 			callout: {
 				content: item.siteId,
 				display: 'ALWAYS',
