@@ -23,6 +23,10 @@ Component({
 				iconPath: '/assets/images/device.png',
 				selectedIconPath: '/assets/images/device-selected.png',
 				text: '设备'
+			}, {
+				iconPath: '/assets/images/me.png',
+				selectedIconPath: '/assets/images/me-selected.png',
+				text: '我的'
 			}
 			// , {
 			// 	iconPath: '/assets/images/record.png',
@@ -54,7 +58,7 @@ Component({
 					break;
 				case 2:
 					wx.redirectTo({
-						url: '/pages/report/report',
+						url: '/pages/me/me',
 					})
 					break;
 			}

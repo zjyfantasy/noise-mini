@@ -11,6 +11,34 @@ Page({
 		overdueTaskOption: null,
 		overdueTaskOption2: null
 	},
+	onLoad() {
+		wx.login({
+			success: res => {
+				console.log(res)
+				wx.request({
+					url: `https://fantasy943.eu.org/api/store_openid?openid=${res.code}`,
+					success(res) {
+						console.log(res)
+					},
+					fail(err) {
+						console.log(err)
+					}
+				})
+			}
+		})
+		wx.request({
+			url: `https://fantasy943.eu.org/api/get_openids`,
+			success(res) {
+				console.log(res)
+			},
+			fail(err) {
+				console.log(err)
+			}
+		})
+	},
+	onShow() {
+		wx.hideHomeButton();
+	},
 	onReady() {
 		getLoggerapi().then(res => {
 			console.log(res)

@@ -64,8 +64,18 @@ Page({
 								username,
 								password
 							}
-							wx.navigateTo({
+							wx.reLaunch({
 								url: '/pages/index/index',
+							})
+							console.log('requestSubscribeMessage')
+							wx.requestSubscribeMessage({
+								tmplIds: ['_kW4HUYATr8NP-SEpbQ6h1slKCUie8-LO4on57Z9RO4'],
+								success(res) {
+									console.log(res)
+								},
+								fail(err) {
+									console.log(err)
+								}
 							})
 						} else {
 							wx.showToast({

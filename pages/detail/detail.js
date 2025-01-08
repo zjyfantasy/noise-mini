@@ -57,6 +57,23 @@ Page({
 			logger
 		} = e.target.dataset
 		console.log(logger)
+		wx.getSetting({
+			withSubscriptions: true,
+			success(res) {
+				console.log(res?.subscriptionsSetting?.itemSettings?.['_kW4HUYATr8NP-SEpbQ6h1slKCUie8-LO4on57Z9RO4'])
+				if (res?.subscriptionsSetting?.itemSettings?.['_kW4HUYATr8NP-SEpbQ6h1slKCUie8-LO4on57Z9RO4'] === 'accept') {
+					wx.requestSubscribeMessage({
+						tmplIds: ['_kW4HUYATr8NP-SEpbQ6h1slKCUie8-LO4on57Z9RO4'],
+						success(res) {
+							console.log(res)
+						},
+						fail(err) {
+							console.log(err)
+						}
+					})
+				}
+			}
+		})
 		wx.navigateTo({
 			url: `/pages/report/report?mobileNumber=${logger.mobileNumber}`,
 		})

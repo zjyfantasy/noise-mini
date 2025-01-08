@@ -1,0 +1,9 @@
+<!--pages/me/me.wxml-->
+<view class="container">
+	<view class="item">账户ID: {{accountInfo.accountID}}</view>
+	<view class="item">账户名: {{accountInfo.accountName}}</view>
+	<view class="item">账户归属ID: {{accountInfo.accountOwnerId}}</view>
+	<view class="item">账户更新日期: {{accountInfo.accountUpdateTime}}</view>
+	<button class="weui-btn" type="primary" bindtap="submitForm">退出登录</button>
+</view>
+<tabbar current='2' />

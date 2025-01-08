@@ -22,8 +22,12 @@
 	<button class="weui-btn" type="primary" bindtap="submitForm">更新</button>
 
 </view>
-<mp-half-screen-dialog bindbuttontap="buttontap" show="{{show}}" maskClosable="{{false}}" title="选择位置" buttons="{{buttons}}">
+<!-- <mp-half-screen-dialog bindbuttontap="buttontap" show="{{show}}" maskClosable="{{false}}" title="选择位置" buttons="{{buttons}}">
 	<view slot="desc">
 		<chooselocation wx:if="{{show}}" location="{{formData}}" bind:locationChange="handleLocationChange" />
 	</view>
-</mp-half-screen-dialog>
+</mp-half-screen-dialog> -->
+
+<mp-dialog title="定位" show="{{show}}" bindbuttontap="buttontap" buttons="{{buttons}}">
+	<chooselocation wx:if="{{show}}" location="{{formData}}" bind:locationChange="handleLocationChange" />
+</mp-dialog>
