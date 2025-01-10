@@ -1,11 +1,12 @@
 // pages/map/map.js
+import dayjs from 'dayjs'
 Page({
 
 	/**
 	 * 页面的初始数据
 	 */
 	data: {
-		
+
 	},
 
 	handleMarkerTab(e) {
@@ -21,34 +22,74 @@ Page({
 	 * 生命周期函数--监听页面加载
 	 */
 	onLoad(options) {
-		console.log(getApp().globalData)
-		const {
-			loggerData
-		} = getApp().globalData
-		const markers = loggerData.map(item => ({
-			id: parseInt(item.serialNumber),
-			latitude: item.latitude,
-			longitude: item.longitude,
-			title: item.siteId,
-			// width: 32,
-			// height: 48,
+		console.log(options)
+		// const {
+		// 	loggerData
+		// } = getApp().globalData
+		// const markers = loggerData.map(item => ({
+		// 	id: parseInt(item.serialNumber),
+		// 	latitude: item.latitude,
+		// 	longitude: item.longitude,
+		// 	title: item.siteId,
+		// 	// width: 32,
+		// 	// height: 48,
+		// 	callout: {
+		// 		content: item.siteId,
+		// 		display: 'ALWAYS',
+		// 		borderRadius: 4,
+		// 		padding: 8
+		// 	}
+		// }))
+		// const leakLoggers = loggerData.filter(item => item.leakstate === 'Leak')
+		// let leakLogger
+		// if (leakLoggers.length) {
+		// 	leakLogger = leakLoggers[0]
+		// } else {
+		// 	leakLogger = loggerData[0]
+		// }
+		// this.setData({
+		// 	latitude: leakLogger.latitude,
+		// 	longitude: leakLogger.longitude,
+		// 	markers
+		// })
+		const Leak = options.Leak
+		let iconPath = ''
+		const days = dayjs().diff(options.dateLastMessageReceived, 'day')
+		if (days >= 3) {
+			// 不正常
+			if (Leak === '1') {
+				iconPath = '../../assets/images/dot/dot_yellow_red.png'
+			} else {
+				iconPath = '../../assets/images/dot/dot_yellow.png'
+			}
+		} else {
+			// 正常
+			if (Leak === '1') {
+				iconPath = '../../assets/images/dot/dot_red.png'
+			} else {
+				iconPath = '../../assets/images/dot/dot_blue.png'
+			}
+		}
+		console.log('days', days)
+
+		const markers = [{
+			id: parseInt(options.serialNumber),
+			latitude: options.latitude,
+			longitude: options.longitude,
+			title: options.siteId,
+			iconPath,
+			width: 16,
+			height: 16,
 			callout: {
-				content: item.siteId,
+				content: options.siteId,
 				display: 'ALWAYS',
 				borderRadius: 4,
 				padding: 8
 			}
-		}))
-		const leakLoggers = loggerData.filter(item => item.leakstate === 'Leak')
-		let leakLogger
-		if (leakLoggers.length) {
-			leakLogger = leakLoggers[0]
-		} else {
-			leakLogger = loggerData[0]
-		}
+		}]
 		this.setData({
-			latitude: leakLogger.latitude,
-			longitude: leakLogger.longitude,
+			latitude: options.latitude,
+			longitude: options.longitude,
 			markers
 		})
 	},

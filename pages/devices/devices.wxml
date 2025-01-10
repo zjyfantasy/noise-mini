@@ -1,0 +1,30 @@
+<!--pages/devices/devices.wxml-->
+<view class="list-wrap">
+	<view class="list-wrap-item" wx:for="{{loggerData}}" wx:key="index" data-item="{{item}}" bind:tap="handleDetail">
+		<view class="item-row item-border">
+			<view class="item-title">
+				{{item.id}}
+			</view>
+			<view class="item-date">
+				{{item.dateLastMessageReceived}}
+			</view>
+		</view>
+		<view class="item-row">
+			<view class="item-col">
+				泄漏状态:<text class="text-value {{item.leakstate==='Leak'?'text-value-red':'item-noleak'}}">{{item.leakstate==='Leak'?'泄漏':'无泄漏'}}</text>
+			</view>
+			<view class="item-col">
+				电池等级:<text class="text-value ">{{item.batteryCondition / 10}}V</text>
+			</view>
+		</view>
+		<view class="item-row">
+			<view class="item-col">
+				频宽:<text class="text-value">{{item.Spread}}dB</text>
+			</view>
+			<view class="item-col">
+				信号质量:<text class="text-value">{{item.signalStrength}}</text>
+			</view>
+		</view>
+	</view>
+</view>
+<tabbar current='1' />

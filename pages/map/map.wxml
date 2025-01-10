@@ -1,4 +1,7 @@
 <!--pages/map/map.wxml-->
-<map id="myMap" style="width: 100%; height: 100vh;" latitude="{{latitude}}" longitude="{{longitude}}" markers="{{markers}}" show-location bindmarkertap="handleMarkerTab" bindlabeltap="handleMarkerTab">
+<map id="myMap" style="width: 100%; height: 100vh;" latitude="{{latitude}}" longitude="{{longitude}}" markers="{{markers}}" show-location bindmarkertap="handleMarkerTab" bindcallouttap="handleMarkerTab">
+	<view slot="callout" style="z-index:1000;">
+		<view marker-id="1">123</view>
+	</view>
 </map>
-<tabbar style="position: fixed;width:100%;left:0;bottom:0" current='1' />
+<!-- <tabbar style="position: fixed;width:100%;left:0;bottom:0" current='1' /> -->

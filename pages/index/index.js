@@ -76,7 +76,7 @@ Page({
 					name: 'Access From',
 					type: 'pie',
 					radius: ['30%', '80%'],
-					color: ['#F00', '#2f4ad9'],
+					color: ['#f60000', '#2f4ad9'],
 					data: [{
 							value: leakNum,
 							name: '漏点数'

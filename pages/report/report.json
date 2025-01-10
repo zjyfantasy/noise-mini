@@ -1,4 +1,6 @@
 {
-	"usingComponents": {},
+	"usingComponents": {
+		"mp-icon": "weui-miniprogram/icon/icon"
+	},
 	"navigationBarTitleText": "历史数据"
 }

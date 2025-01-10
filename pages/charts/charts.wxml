@@ -1,0 +1,15 @@
+<!--pages/charts/charts.wxml-->
+<view class="legend">
+	<view class="item">
+		<view class="leak"></view>泄漏
+	</view>
+	<view class="item">
+		<view class="spread"></view>频宽
+	</view>
+	<view class="item">
+		<view class="noise"></view>声强
+	</view>
+</view>
+<view class="canvas-wrap">
+	<basicchart wx:if="{{overdueTaskOption}}" option="{{overdueTaskOption}}"></basicchart>
+</view>

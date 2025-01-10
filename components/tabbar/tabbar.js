@@ -53,7 +53,8 @@ Component({
 					break;
 				case 1:
 					wx.redirectTo({
-						url: '/pages/map/map',
+						// url: '/pages/map/map',
+						url: '/pages/devices/devices',
 					})
 					break;
 				case 2:

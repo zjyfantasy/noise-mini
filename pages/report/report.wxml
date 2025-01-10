@@ -26,3 +26,7 @@
 		<text class="list-item-leak">{{item.c1leak>0?'泄露':'未泄露'}}</text>
 	</view>
 </view>
+<view wx:if="{{dataSource.length}}" class="chartBtn" bind:tap="handleCharts">
+	<mp-icon extClass="icon" icon="album" color="#fff" size="{{25}}"></mp-icon>
+	曲线图
+</view>

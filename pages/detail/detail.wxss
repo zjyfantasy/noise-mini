@@ -4,7 +4,7 @@
 }
 
 .Leak {
-	color: #f00;
+	color: #f60000;
 }
 
 .custom-tabs {

@@ -1,0 +1,6 @@
+{
+	"usingComponents": {
+		"basicchart": "/components/basicchart/basicchart"
+	},
+	"navigationBarTitleText": "曲线图"
+}

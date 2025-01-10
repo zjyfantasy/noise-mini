@@ -37,6 +37,27 @@
 picker {
 	flex: 1
 }
-.picker-label{
+
+.picker-label {
 	font-size: 24rpx;
+}
+
+.chartBtn {
+	width: 64px;
+	height: 64px;
+	border-radius: 50%;
+	background: #07c160d0;
+	position: fixed;
+	right: 24px;
+	bottom: 160px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	font-size: 12px;
+	color: #fff;
+}
+
+.icon {
+	color: aliceblue;
 }

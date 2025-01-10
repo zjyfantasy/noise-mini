@@ -73,14 +73,15 @@ Page({
 			startdate: startDate,
 			enddate: endDate,
 		}).then(res => {
-			const dataSource = res.map(item => ({
+			const dataSource = res?.map(item => ({
 				...item,
-				date: dayjs(item.datetime).format('YYYY年MM月DD日 HH:mm:ss')
+				date: dayjs(item.datetime).format('YYYY年MM月DD日 HH:mm:ss'),
+				dateFormat: dayjs(item.datetime).format('YYYY-MM-DD'),
 			}))
-			console.log(dataSource)
 			this.setData({
 				dataSource
 			})
+			getApp().globalData.chartsData = dataSource
 		})
 	},
 
@@ -92,6 +93,12 @@ Page({
 			this.setData({
 				recordings: res
 			})
+		})
+	},
+
+	handleCharts() {
+		wx.navigateTo({
+			url: '/pages/charts/charts',
 		})
 	},
 
