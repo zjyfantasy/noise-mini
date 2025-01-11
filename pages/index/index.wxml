@@ -8,7 +8,7 @@
 			<basicchart wx:if="{{overdueTaskOption}}" option="{{overdueTaskOption}}"></basicchart>
 			<view class="legend">
 				<text class="legend-item legend-item-err">漏点数：{{leakNum}}</text>
-				<text class="legend-item legend-item-success">无漏点：{{loggerData.length-leakNum}}</text>
+				<text class="legend-item legend-item-success">无漏点：{{(loggerData.length-leakNum)||0}}</text>
 			</view>
 		</view>
 		<view class="canvas-wrap">

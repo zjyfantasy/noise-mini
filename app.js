@@ -14,11 +14,11 @@ App({
 		})
 	},
 	globalData: {
-		// userInfo: null,
-		userInfo: {
-			username: 'testsy01',
-			password: 'Test@2024'
-		},
+		userInfo: null,
+		// userInfo: {
+		// 	username: 'testsy01',
+		// 	password: 'Test@2024'
+		// },
 		BASE_URL: 'https://www.en-education.eu.org/v2'
 	}
 })

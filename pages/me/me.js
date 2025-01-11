@@ -9,6 +9,7 @@ Page({
 	},
 
 	submitForm() {
+		getApp().globalData.accountInfo = null
 		wx.reLaunch({
 			url: '/pages/login/login',
 		})
