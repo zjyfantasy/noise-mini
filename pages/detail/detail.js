@@ -25,6 +25,7 @@ Page({
 		id
 	}) {
 		console.log(id)
+		wx.showLoading()
 		getLoggerapi({
 			serial: id
 		}).then(res => {
@@ -50,6 +51,8 @@ Page({
 				Spread,
 				batteryCondition
 			})
+		}).finally(() => {
+			wx.hideLoading()
 		})
 	},
 	handleHistory(e) {

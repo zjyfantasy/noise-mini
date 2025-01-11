@@ -8,6 +8,8 @@ Page({
 	 * 页面的初始数据
 	 */
 	data: {
+		array: ['121.40.190.180', '47.99.165.190'],
+		index: 0,
 		rules: [{
 			name: 'username',
 			rules: {
@@ -24,6 +26,17 @@ Page({
 		formData: {
 
 		},
+	},
+	handleIPChange(e) {
+		const value = e.detail.value
+		if (value === '0') {
+			getApp().globalData.BASE_URL = 'https://www.en-education.eu.org/v2'
+		} else if (value === '1') {
+			getApp().globalData.BASE_URL = 'https://www.en-education.eu.org/v3'
+		}
+		this.setData({
+			index: value
+		})
 	},
 	formInputChange(e) {
 		const {

@@ -137,7 +137,7 @@ Page({
 		} = getApp().globalData;
 		const _this = this
 		wx.downloadFile({
-			url: `${BASE_URL}/v2/Datagate/api/getrecordingsapi.ashx?username=${userInfo?.username}&password=${userInfo?.password}&software=HWM+Test&ID=${item.id}`,
+			url: `${BASE_URL}/Datagate/api/getrecordingsapi.ashx?username=${userInfo?.username}&password=${userInfo?.password}&software=HWM+Test&ID=${item.id}`,
 			filePath: `${wx.env.USER_DATA_PATH}/audio.wav`,
 			success(res) {
 				console.log(res)

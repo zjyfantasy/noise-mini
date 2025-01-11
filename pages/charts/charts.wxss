@@ -1,7 +1,7 @@
 /* pages/charts/charts.wxss */
 .canvas-wrap {
 	width: 100%;
-	height: 500rpx;
+	height: 800rpx;
 }
 
 .legend {
@@ -39,4 +39,25 @@
 	height: 2px;
 	background: #5cfa35;
 	margin-right: 6rpx;
+}
+
+
+.picker-wrap {
+	height: 96rpx;
+	display: flex;
+	/* justify-content: space-between; */
+	align-items: center;
+	box-sizing: border-box;
+	border: 1px solid #0de417;
+	border-radius: 48rpx;
+	padding: 12rpx;
+	margin: 20rpx 32rpx 120rpx;
+}
+
+picker {
+	flex: 1
+}
+
+.picker-label {
+	font-size: 24rpx;
 }

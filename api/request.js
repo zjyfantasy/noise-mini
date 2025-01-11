@@ -7,7 +7,7 @@ const request = ({
 	return new Promise((resolve, reject) => {
 		let HOST = getApp().globalData.BASE_URL;
 		wx.request({
-			url: `${HOST}/v2/${url}`,
+			url: `${HOST}/${url}`,
 			success(res) {
 				if (res.statusCode === 200) {
 					console.log(typeof (res.data))

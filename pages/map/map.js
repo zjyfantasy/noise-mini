@@ -23,23 +23,47 @@ Page({
 	 */
 	onLoad(options) {
 		console.log(options)
-		// const {
-		// 	loggerData
-		// } = getApp().globalData
-		// const markers = loggerData.map(item => ({
-		// 	id: parseInt(item.serialNumber),
-		// 	latitude: item.latitude,
-		// 	longitude: item.longitude,
-		// 	title: item.siteId,
-		// 	// width: 32,
-		// 	// height: 48,
-		// 	callout: {
-		// 		content: item.siteId,
-		// 		display: 'ALWAYS',
-		// 		borderRadius: 4,
-		// 		padding: 8
-		// 	}
-		// }))
+		const {
+			loggerData
+		} = getApp().globalData
+		const markers = loggerData.map(item => {
+			let Leak = "0"
+			if (item.channel1Type === 'Leak') {
+				Leak = item.channels.channel[0].lastValue
+			}
+			let iconPath = ''
+			const days = dayjs().diff(item.dateLastMessageReceived, 'day')
+			if (days >= 3) {
+				// 不正常
+				if (Leak === '1') {
+					iconPath = '../../assets/images/dot/dot_yellow_red.png'
+				} else {
+					iconPath = '../../assets/images/dot/dot_yellow.png'
+				}
+			} else {
+				// 正常
+				if (Leak === '1') {
+					iconPath = '../../assets/images/dot/dot_red.png'
+				} else {
+					iconPath = '../../assets/images/dot/dot_blue.png'
+				}
+			}
+			return {
+				id: parseInt(item.serialNumber),
+				latitude: item.latitude,
+				longitude: item.longitude,
+				title: item.siteId,
+				width: 16,
+				height: 16,
+				iconPath,
+				callout: {
+					content: item.siteId,
+					display: 'ALWAYS',
+					borderRadius: 4,
+					padding: 8
+				}
+			}
+		})
 		// const leakLoggers = loggerData.filter(item => item.leakstate === 'Leak')
 		// let leakLogger
 		// if (leakLoggers.length) {
@@ -47,51 +71,51 @@ Page({
 		// } else {
 		// 	leakLogger = loggerData[0]
 		// }
-		// this.setData({
-		// 	latitude: leakLogger.latitude,
-		// 	longitude: leakLogger.longitude,
-		// 	markers
-		// })
-		const Leak = options.Leak
-		let iconPath = ''
-		const days = dayjs().diff(options.dateLastMessageReceived, 'day')
-		if (days >= 3) {
-			// 不正常
-			if (Leak === '1') {
-				iconPath = '../../assets/images/dot/dot_yellow_red.png'
-			} else {
-				iconPath = '../../assets/images/dot/dot_yellow.png'
-			}
-		} else {
-			// 正常
-			if (Leak === '1') {
-				iconPath = '../../assets/images/dot/dot_red.png'
-			} else {
-				iconPath = '../../assets/images/dot/dot_blue.png'
-			}
-		}
-		console.log('days', days)
-
-		const markers = [{
-			id: parseInt(options.serialNumber),
-			latitude: options.latitude,
-			longitude: options.longitude,
-			title: options.siteId,
-			iconPath,
-			width: 16,
-			height: 16,
-			callout: {
-				content: options.siteId,
-				display: 'ALWAYS',
-				borderRadius: 4,
-				padding: 8
-			}
-		}]
 		this.setData({
 			latitude: options.latitude,
 			longitude: options.longitude,
 			markers
 		})
+		// const Leak = options.Leak
+		// let iconPath = ''
+		// const days = dayjs().diff(options.dateLastMessageReceived, 'day')
+		// if (days >= 3) {
+		// 	// 不正常
+		// 	if (Leak === '1') {
+		// 		iconPath = '../../assets/images/dot/dot_yellow_red.png'
+		// 	} else {
+		// 		iconPath = '../../assets/images/dot/dot_yellow.png'
+		// 	}
+		// } else {
+		// 	// 正常
+		// 	if (Leak === '1') {
+		// 		iconPath = '../../assets/images/dot/dot_red.png'
+		// 	} else {
+		// 		iconPath = '../../assets/images/dot/dot_blue.png'
+		// 	}
+		// }
+		// console.log('days', days)
+
+		// const markers = [{
+		// 	id: parseInt(options.serialNumber),
+		// 	latitude: options.latitude,
+		// 	longitude: options.longitude,
+		// 	title: options.siteId,
+		// 	iconPath,
+		// 	width: 16,
+		// 	height: 16,
+		// 	callout: {
+		// 		content: options.siteId,
+		// 		display: 'ALWAYS',
+		// 		borderRadius: 4,
+		// 		padding: 8
+		// 	}
+		// }]
+		// this.setData({
+		// 	latitude: options.latitude,
+		// 	longitude: options.longitude,
+		// 	markers
+		// })
 	},
 
 	/**

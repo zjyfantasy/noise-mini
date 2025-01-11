@@ -10,6 +10,15 @@
 		<mp-form id="form" rules="{{rules}}" models="{{formData}}">
 			<mp-cells>
 				<label>
+					<mp-cell prop="ip" title="IP" ext-class="">
+						<picker value="{{index}}" range="{{array}}" mode="selector" bindchange="handleIPChange">
+							<view class="picker">
+								{{array[index]}}
+							</view>
+						</picker>
+					</mp-cell>
+				</label>
+				<label>
 					<mp-cell prop="username" title="用户名" ext-class="">
 						<input bindinput="formInputChange" data-field="username" class="weui-input" placeholder="请输入用户名" />
 					</mp-cell>
@@ -22,5 +31,7 @@
 			</mp-cells>
 		</mp-form>
 	</div>
+	<button class="weui-btn" type="primary" bindtap="submitForm">切换IP</button>
 	<button class="weui-btn" type="primary" bindtap="submitForm">登录</button>
 </view>
+<mp-half-screen-dialog bindbuttontap="buttontap" show="{{show}}" maskClosable="{{false}}" title="测试标题B" subTitle="测试标题B的副标题" desc="辅助描述内容，可根据实际需要安排" tips="辅助提示内容，可根据实际需要安排" buttons="{{buttons}}"></mp-half-screen-dialog>

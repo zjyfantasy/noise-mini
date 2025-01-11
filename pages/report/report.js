@@ -29,15 +29,28 @@ Page({
 			mobileNumber
 		})
 		this.getDataExport();
-		this.getRecordings();
+		// this.getRecordings();
 	},
 
 	handleDateStart({
 		detail
 	}) {
+		const {
+			endDate
+		} = this.data
+		const startDate = detail.value
+		const sub = dayjs(endDate).diff(startDate, 'day')
+		if (sub < 0) {
+			wx.showToast({
+				icon: "none",
+				title: '结束日期不能小于开始日期'
+			})
+			return
+		}
 		this.setData({
-			startDate: detail.value
+			startDate
 		})
+		this.getDataExport()
 	},
 	handleDateEnd({
 		detail
@@ -67,12 +80,14 @@ Page({
 			endDate
 		} = this.data
 		console.log(mobileNumber, startDate, endDate)
+		wx.showLoading()
 		getDataExportAPI({
 			logger: mobileNumber,
 			period: 5,
 			startdate: startDate,
 			enddate: endDate,
 		}).then(res => {
+			console.log(res)
 			const dataSource = res?.map(item => ({
 				...item,
 				date: dayjs(item.datetime).format('YYYY年MM月DD日 HH:mm:ss'),
@@ -81,7 +96,9 @@ Page({
 			this.setData({
 				dataSource
 			})
-			getApp().globalData.chartsData = dataSource
+			// getApp().globalData.chartsData = dataSource
+		}).finally(() => {
+			wx.hideLoading()
 		})
 	},
 
@@ -97,8 +114,13 @@ Page({
 	},
 
 	handleCharts() {
+		const {
+			startDate,
+			endDate,
+			mobileNumber
+		} = this.data
 		wx.navigateTo({
-			url: '/pages/charts/charts',
+			url: `/pages/charts/charts?startDate=${startDate}&endDate=${endDate}&mobileNumber=${mobileNumber}`,
 		})
 	},
 

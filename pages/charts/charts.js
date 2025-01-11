@@ -1,4 +1,8 @@
 // pages/charts/charts.js
+import dayjs from 'dayjs'
+import {
+	getDataExportAPI
+} from '../../api/hwm';
 Page({
 
 	/**
@@ -6,78 +10,228 @@ Page({
 	 */
 	data: {
 		overdueTaskOption: null,
+		end: dayjs().format('YYYY-MM-DD'),
+		// startDate: dayjs().add(-1, 'year').format('YYYY-MM-DD'),
+		// endDate: dayjs().format('YYYY-MM-DD'),
 	},
 
 	/**
 	 * 生命周期函数--监听页面加载
 	 */
 	onLoad(options) {
-		const chartsData = getApp().globalData.chartsData || []
-		console.log(chartsData)
-		const category = chartsData.map(item => item.dateFormat)
-		const leak = chartsData.map(item => item.c1leak / 1000)
-		const spread = chartsData.map(item => item.c3spread / 1000)
-		const noise = chartsData.map(item => item.c2noise / 1000)
-
+		const {
+			mobileNumber,
+			startDate,
+			endDate
+		} = options
+		console.log(mobileNumber, startDate, endDate)
 		this.setData({
-			overdueTaskOption: {
-				grid: {
-					top: '5%',
-					left: '2%',
-					right: '4%',
-					bottom: '20%',
-					containLabel: true
-				},
-				xAxis: {
-					type: 'category',
-					boundaryGap: true,
-					data: category,
-					axisLabel: {
-						rotate: 45
-					}
-				},
-				yAxis: {
-					type: 'value'
-				},
-				dataZoom: [{
-						type: 'inside',
-						start: 0,
-						end: 100
+			mobileNumber,
+			startDate,
+			endDate
+		})
+		this.getDataExport()
+		// const chartsData = getApp().globalData.chartsData || []
+		// const category = chartsData.map(item => item.dateFormat)
+		// const leak = chartsData.map(item => item.c1leak / 1000)
+		// const spread = chartsData.map(item => item.c3spread / 1000)
+		// const noise = chartsData.map(item => item.c2noise / 1000)
+
+		// this.setData({
+		// 	overdueTaskOption: {
+		// 		grid: {
+		// 			top: '5%',
+		// 			left: '2%',
+		// 			right: '4%',
+		// 			bottom: '20%',
+		// 			containLabel: true
+		// 		},
+		// 		xAxis: {
+		// 			type: 'category',
+		// 			boundaryGap: true,
+		// 			data: category,
+		// 			axisLabel: {
+		// 				rotate: 45
+		// 			}
+		// 		},
+		// 		yAxis: {
+		// 			type: 'value'
+		// 		},
+		// 		dataZoom: [{
+		// 				type: 'inside',
+		// 				start: 0,
+		// 				end: 100
+		// 			},
+		// 			{
+		// 				start: 0,
+		// 				end: 100
+		// 			}
+		// 		],
+		// 		series: [{
+		// 				name: '是否泄漏',
+		// 				type: 'line',
+		// 				stack: 'Total',
+		// 				data: leak,
+		// 				itemStyle: {
+		// 					color: '#f60000'
+		// 				}
+		// 			},
+		// 			{
+		// 				name: '频宽',
+		// 				type: 'line',
+		// 				stack: 'Total',
+		// 				data: spread,
+		// 				itemStyle: {
+		// 					color: '#2f4ad9'
+		// 				}
+		// 			},
+		// 			{
+		// 				name: '声强',
+		// 				type: 'line',
+		// 				stack: 'Total',
+		// 				data: noise,
+		// 				itemStyle: {
+		// 					color: '#5cfa35'
+		// 				}
+		// 			}
+		// 		]
+		// 	}
+		// })
+	},
+
+	handleDateStart({
+		detail
+	}) {
+		const {
+			endDate
+		} = this.data
+		const startDate = detail.value
+		const sub = dayjs(endDate).diff(startDate, 'day')
+		if (sub < 0) {
+			wx.showToast({
+				icon: "none",
+				title: '结束日期不能小于开始日期'
+			})
+			return
+		}
+		this.setData({
+			startDate
+		})
+		this.getDataExport()
+	},
+	handleDateEnd({
+		detail
+	}) {
+		const {
+			startDate
+		} = this.data
+		const endDate = detail.value
+		const sub = dayjs(endDate).diff(startDate, 'day')
+		if (sub < 0) {
+			wx.showToast({
+				icon: "none",
+				title: '结束日期不能小于开始日期'
+			})
+			return
+		}
+		this.setData({
+			endDate: detail.value
+		})
+		this.getDataExport()
+	},
+
+	getDataExport() {
+		const {
+			mobileNumber,
+			startDate,
+			endDate
+		} = this.data
+		console.log(mobileNumber, startDate, endDate)
+		wx.showLoading()
+		getDataExportAPI({
+			logger: mobileNumber,
+			period: 5,
+			startdate: startDate,
+			enddate: endDate,
+		}).then(res => {
+			console.log(res)
+			const dataSource = res?.map(item => ({
+				...item,
+				date: dayjs(item.datetime).format('YYYY年MM月DD日 HH:mm:ss'),
+				dateFormat: dayjs(item.datetime).format('YYYY-MM-DD'),
+			}))
+			// this.setData({
+			// 	dataSource
+			// })
+			// getApp().globalData.chartsData = dataSource
+			const chartsData = dataSource || []
+			const category = chartsData.map(item => item.dateFormat)
+			const leak = chartsData.map(item => item.c1leak / 1000)
+			const spread = chartsData.map(item => item.c3spread / 1000)
+			const noise = chartsData.map(item => item.c2noise / 1000)
+
+			this.setData({
+				overdueTaskOption: {
+					grid: {
+						top: '5%',
+						left: '2%',
+						right: '4%',
+						bottom: '20%',
+						containLabel: true
 					},
-					{
-						start: 0,
-						end: 100
-					}
-				],
-				series: [{
-						name: '是否泄漏',
-						type: 'line',
-						stack: 'Total',
-						data: leak,
-						itemStyle: {
-							color: '#f60000'
+					xAxis: {
+						type: 'category',
+						boundaryGap: true,
+						data: category,
+						axisLabel: {
+							rotate: 45
 						}
 					},
-					{
-						name: '频宽',
-						type: 'line',
-						stack: 'Total',
-						data: spread,
-						itemStyle: {
-							color: '#2f4ad9'
-						}
+					yAxis: {
+						type: 'value'
 					},
-					{
-						name: '声强',
-						type: 'line',
-						stack: 'Total',
-						data: noise,
-						itemStyle: {
-							color: '#5cfa35'
+					dataZoom: [{
+							type: 'inside',
+							start: 0,
+							end: 100
+						},
+						{
+							start: 0,
+							end: 100
 						}
-					}
-				]
-			}
+					],
+					series: [{
+							name: '是否泄漏',
+							type: 'line',
+							stack: 'Total',
+							data: leak,
+							itemStyle: {
+								color: '#f60000'
+							}
+						},
+						{
+							name: '频宽',
+							type: 'line',
+							stack: 'Total',
+							data: spread,
+							itemStyle: {
+								color: '#2f4ad9'
+							}
+						},
+						{
+							name: '声强',
+							type: 'line',
+							stack: 'Total',
+							data: noise,
+							itemStyle: {
+								color: '#5cfa35'
+							}
+						}
+					]
+				}
+			})
+		}).finally(() => {
+			wx.hideLoading()
 		})
 	},
 

@@ -19,6 +19,13 @@
 	margin-top: 120px;
 }
 
-.item{
+.item {
 	margin-bottom: 20px;
+	font-size: 12px;
+	color: #a5a5a5;
 }
+
+/* .item-value{
+	color: #000;
+	font-weight: bold;
+} */

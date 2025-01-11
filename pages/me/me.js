@@ -5,7 +5,7 @@ Page({
 	 * 页面的初始数据
 	 */
 	data: {
-		accountInfo: getApp().globalData.accountInfo
+		accountInfo: {}
 	},
 
 	submitForm() {
@@ -25,7 +25,10 @@ Page({
 	 * 生命周期函数--监听页面初次渲染完成
 	 */
 	onReady() {
-
+		console.log(getApp().globalData.accountInfo)
+		this.setData({
+			accountInfo: getApp().globalData.accountInfo
+		})
 	},
 
 	/**

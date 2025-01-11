@@ -40,13 +40,20 @@ Page({
 		wx.hideHomeButton();
 	},
 	onReady() {
+		wx.showLoading()
 		getLoggerapi().then(res => {
 			console.log(res)
 			const {
 				logger,
 				summary
 			} = res.loggers
-			const loggerData = logger.filter(item => !!item.mobileNumber)
+			let loggerData;
+			if (Array.isArray(logger)) {
+				loggerData = logger.filter(item => !!item.mobileNumber)
+			} else {
+				loggerData = [logger]
+			}
+			// const loggerData = logger.filter(item => !!item.mobileNumber)
 			const leakLoggers = loggerData.filter(item => item.leakstate === 'Leak')
 			const leakNum = leakLoggers.length
 			const last24Leak = leakLoggers.filter(item => {
@@ -64,9 +71,31 @@ Page({
 				last24LeakNum: last24Leak.length
 			})
 			this.setChartData(leakNum, loggerData.length)
+		}).finally(() => {
+			wx.hideLoading()
 		})
 	},
 	setChartData(leakNum, loggersNum) {
+		let optionData = []
+		if (leakNum > 0) {
+			optionData = [{
+					value: leakNum,
+					name: '漏点未分类'
+				},
+				{
+					value: 0,
+					name: '调查在进行中'
+				},
+				{
+					value: 0,
+					name: '等待修复'
+				},
+				{
+					value: 0,
+					name: '调查清除'
+				},
+			]
+		}
 		this.setData({
 			overdueTaskOption: {
 				series: [{
@@ -97,23 +126,7 @@ Page({
 					type: 'pie',
 					radius: ['30%', '80%'],
 					color: ['#f60000', '#f7fa35', '#5cfa35', '#cc35fa'],
-					data: [{
-							value: leakNum,
-							name: '漏点未分类'
-						},
-						{
-							value: 0,
-							name: '调查在进行中'
-						},
-						{
-							value: 0,
-							name: '等待修复'
-						},
-						{
-							value: 0,
-							name: '调查清除'
-						},
-					],
+					data: optionData,
 				}]
 			}
 		})

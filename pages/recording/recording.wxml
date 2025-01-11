@@ -15,7 +15,7 @@
 		<mp-icon wx:if="{{!playing}}" extClass="icon" icon="play" color="#000" size="{{40}}" bind:tap="playAudio"></mp-icon>
 		<mp-icon wx:if="{{playing}}" extClass="icon" icon="pause" color="#000" size="{{40}}" bind:tap="pauseAudio"></mp-icon>
 		<text class="time-wrap">0:{{currentTime}}</text>/
-		<text class="time-wrap">0:{{duration}}</text>
+		<text class="time-wrap">0:{{duration||0}}</text>
 		<slider min="0" max="{{duration}}" value="{{currentTime}}" block-size="12" bindchange="handleSliderChange" />
 	</view>
 </mp-dialog>
