@@ -49,7 +49,7 @@ Page({
 				}
 			}
 			return {
-				id: parseInt(item.serialNumber),
+				id: parseInt(item.mobileNumber),
 				latitude: item.latitude,
 				longitude: item.longitude,
 				title: item.siteId,

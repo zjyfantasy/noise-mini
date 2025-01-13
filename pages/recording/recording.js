@@ -37,14 +37,23 @@ Page({
 		const {
 			id
 		} = this.data
+		wx.showLoading()
 		getRecordingsAPI({
 			siteID: id,
 			Type: 3
 		}).then(res => {
 			console.log(res)
-			this.setData({
-				dataSource: res.recordings.recording
-			})
+			if (Array.isArray(res.recordings.recording)) {
+				this.setData({
+					dataSource: res.recordings.recording
+				})
+			} else {
+				this.setData({
+					dataSource: [res.recordings.recording]
+				})
+			}
+		}).finally(() => {
+			wx.hideLoading()
 		})
 	},
 
@@ -136,6 +145,7 @@ Page({
 			userInfo
 		} = getApp().globalData;
 		const _this = this
+		wx.showLoading()
 		wx.downloadFile({
 			url: `${BASE_URL}/Datagate/api/getrecordingsapi.ashx?username=${userInfo?.username}&password=${userInfo?.password}&software=HWM+Test&ID=${item.id}`,
 			filePath: `${wx.env.USER_DATA_PATH}/audio.wav`,
@@ -162,6 +172,9 @@ Page({
 			},
 			fail(err) {
 				console.log(err)
+			},
+			complete() {
+				wx.hideLoading()
 			}
 		})
 	},

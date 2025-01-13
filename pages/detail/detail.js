@@ -27,7 +27,7 @@ Page({
 		console.log(id)
 		wx.showLoading()
 		getLoggerapi({
-			serial: id
+			number: id
 		}).then(res => {
 			console.log(res)
 			// const loggerData = res?.loggers.logger
