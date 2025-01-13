@@ -19,6 +19,7 @@ App({
 		// 	username: 'testsy01',
 		// 	password: 'Test@2024'
 		// },
-		BASE_URL: 'https://www.en-education.eu.org/v2'
+		// BASE_URL: 'https://www.en-education.eu.org/v2'
+		BASE_URL: 'https://t-vr.biaddti.com/v2'
 	}
 })

@@ -30,7 +30,7 @@ Page({
 	handleIPChange(e) {
 		const value = e.detail.value
 		if (value === '0') {
-			getApp().globalData.BASE_URL = 'https://www.en-education.eu.org/v2'
+			getApp().globalData.BASE_URL = 'https://t-vr.biaddti.com/v2'
 		} else if (value === '1') {
 			getApp().globalData.BASE_URL = 'https://www.en-education.eu.org/v3'
 		}
@@ -60,6 +60,7 @@ Page({
 					password
 				} = this.data.formData
 				console.log(this.data.formData, loginapi)
+				wx.showLoading()
 				loginapi({
 					username,
 					password
@@ -97,6 +98,8 @@ Page({
 							})
 						}
 					}
+				}).finally(() => {
+					wx.hideLoading()
 				})
 			}
 		})

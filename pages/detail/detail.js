@@ -30,7 +30,14 @@ Page({
 			serial: id
 		}).then(res => {
 			console.log(res)
-			const loggerData = res?.loggers.logger
+			// const loggerData = res?.loggers.logger
+			let loggerData = {}
+			if (Array.isArray(res?.loggers?.logger)) {
+				const arr = res?.loggers?.logger?.filter(item => !!item.siteId)
+				loggerData = arr[0]
+			} else {
+				loggerData = res?.loggers.logger
+			}
 			let Leak = "0",
 				Noise = '0',
 				Spread = '0'
