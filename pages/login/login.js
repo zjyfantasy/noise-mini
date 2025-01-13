@@ -8,6 +8,11 @@ Page({
 	 * 页面的初始数据
 	 */
 	data: {
+		buttons: [{
+			text: '关闭'
+		}, {
+			text: '复制openID'
+		}],
 		array: ['121.40.190.180', '47.99.165.190'],
 		index: 0,
 		rules: [{
@@ -60,47 +65,136 @@ Page({
 					password
 				} = this.data.formData
 				console.log(this.data.formData, loginapi)
-				wx.showLoading()
-				loginapi({
-					username,
-					password
-				}).then(res => {
-					console.log(res)
-					if (res?.error) {
-						wx.showToast({
-							icon: 'error',
-							title: '用户名或密码错误'
-						})
-						return
-					} else {
-						if (res.loggers) {
-							getApp().globalData.userInfo = {
-								username,
-								password
-							}
-							wx.reLaunch({
-								url: '/pages/index/index',
-							})
-							console.log('requestSubscribeMessage')
-							wx.requestSubscribeMessage({
-								tmplIds: ['_kW4HUYATr8NP-SEpbQ6h1slKCUie8-LO4on57Z9RO4'],
-								success(res) {
-									console.log(res)
-								},
-								fail(err) {
-									console.log(err)
-								}
-							})
-						} else {
-							wx.showToast({
-								icon: 'error',
-								title: '用户名或密码错误'
-							})
-						}
-					}
-				}).finally(() => {
-					wx.hideLoading()
+				if (username === 'admin' && password === 'Abc12345..') {
+					wx.reLaunch({
+						url: '/pages/admin/admin',
+					})
+					return
+				}
+				this.auth(this.loginFc)
+			}
+		})
+	},
+
+	loginFc() {
+		const {
+			username,
+			password
+		} = this.data.formData
+		wx.showLoading()
+		loginapi({
+			username,
+			password
+		}).then(res => {
+			console.log(res)
+			if (res?.error) {
+				wx.showToast({
+					icon: 'error',
+					title: '用户名或密码错误'
 				})
+				return
+			} else {
+				if (res.loggers) {
+					getApp().globalData.userInfo = {
+						username,
+						password
+					}
+					wx.reLaunch({
+						url: '/pages/index/index',
+					})
+					console.log('requestSubscribeMessage')
+					wx.requestSubscribeMessage({
+						tmplIds: ['_kW4HUYATr8NP-SEpbQ6h1slKCUie8-LO4on57Z9RO4'],
+						success(res) {
+							console.log(res)
+						},
+						fail(err) {
+							console.log(err)
+						}
+					})
+				} else {
+					wx.showToast({
+						icon: 'error',
+						title: '用户名或密码错误'
+					})
+				}
+			}
+		}).finally(() => {
+			wx.hideLoading()
+		})
+	},
+	tapDialogButton(e) {
+		console.log(e)
+		const index = e.detail.index
+		if (index === 0) {
+			this.setData({
+				show: false
+			})
+		} else {
+			const {
+				openid
+			} = this.data
+			wx.setClipboardData({
+				data: openid,
+				success(res) {
+					wx.showToast({
+						title: '已复制',
+					})
+				}
+			})
+		}
+		// this.setData({
+
+		// })
+	},
+	auth(callback) {
+		wx.showLoading()
+		const _this = this
+		wx.login({
+			success: res => {
+				console.log(res)
+				wx.showLoading()
+				wx.request({
+					url: `https://fantasy943.eu.org/access/get_openid?openid=${res.code}`,
+					success(res) {
+						const openid = res.data
+						console.log('openid', openid)
+						_this.setData({
+							openid
+						})
+						wx.showLoading()
+						wx.request({
+							url: `https://fantasy943.eu.org/access/get_openids`,
+							success(res2) {
+								const openids = res2.data
+								console.log('openids', openids)
+								if (openids.includes(openid)) {
+									// 成功
+									callback()
+								} else {
+									_this.setData({
+										show: true
+									})
+								}
+							},
+							fail(err) {
+								console.log(err)
+							},
+							complete() {
+								wx.hideLoading()
+							}
+						})
+					},
+					fail(err) {
+						console.log(err)
+					},
+					complete() {
+						wx.hideLoading()
+					}
+				})
+			},
+			complete() {
+				wx.hideLoading()
 			}
 		})
 	},

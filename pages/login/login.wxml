@@ -34,4 +34,11 @@
 	<button class="weui-btn" type="primary" bindtap="submitForm">切换IP</button>
 	<button class="weui-btn" type="primary" bindtap="submitForm">登录</button>
 </view>
-<mp-half-screen-dialog bindbuttontap="buttontap" show="{{show}}" maskClosable="{{false}}" title="测试标题B" subTitle="测试标题B的副标题" desc="辅助描述内容，可根据实际需要安排" tips="辅助提示内容，可根据实际需要安排" buttons="{{buttons}}"></mp-half-screen-dialog>
+
+
+<mp-dialog title="权限不足" show="{{show}}" bindbuttontap="tapDialogButton" buttons="{{buttons}}">
+	<view class="radio-wrap">
+		<view class="time-wrap">您没有访问权限，请联系管理员添加openID</view>
+		<view class="time-wrap">openID：{{openid}}</view>
+	</view>
+</mp-dialog>

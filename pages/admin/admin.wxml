@@ -1,0 +1,11 @@
+<!--pages/admin/admin.wxml-->
+<mp-cells>
+	<label>
+		<mp-cell prop="username" title="openID" ext-class="">
+			<input style="margin-left: 20px;" value="{{value}}" bindinput="formInputChange" data-field="openid" class="weui-input" placeholder="请输入openID" />
+		</mp-cell>
+	</label>
+</mp-cells>
+
+<button class="weui-btn" type="primary" bindtap="add">添加</button>
+<button class="exit-btn" type="warn" bindtap="exit">退出登录</button>
