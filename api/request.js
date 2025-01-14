@@ -10,7 +10,6 @@ const request = ({
 			url: `${HOST}/${url}`,
 			success(res) {
 				if (res.statusCode === 200) {
-					console.log(typeof (res.data))
 					if (typeof (res.data) === 'string') {
 						const json = formatXml(res.data);
 						resolve(json);

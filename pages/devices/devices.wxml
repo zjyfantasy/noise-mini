@@ -3,7 +3,7 @@
 	<view class="list-wrap-item" wx:for="{{loggerData}}" wx:key="index" data-item="{{item}}" bind:tap="handleDetail">
 		<view class="item-row item-border">
 			<view class="item-title">
-				{{item.id}}
+				{{item.siteId}}
 			</view>
 			<view class="item-date">
 				{{item.dateLastMessageReceived}}
@@ -23,6 +23,11 @@
 			</view>
 			<view class="item-col">
 				信号质量:<text class="text-value">{{item.signalStrength}}</text>
+			</view>
+		</view>
+		<view class="item-row">
+			<view class="item-col">
+				声强:<text class="text-value">{{item.Noise}}</text>
 			</view>
 		</view>
 	</view>

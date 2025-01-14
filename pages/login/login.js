@@ -95,6 +95,7 @@ Page({
 				return
 			} else {
 				if (res.loggers) {
+					wx.hideLoading()
 					getApp().globalData.userInfo = {
 						username,
 						password
@@ -119,7 +120,7 @@ Page({
 					})
 				}
 			}
-		}).finally(() => {
+		}).catch(() => {
 			wx.hideLoading()
 		})
 	},
@@ -153,7 +154,6 @@ Page({
 		wx.login({
 			success: res => {
 				console.log(res)
-				wx.showLoading()
 				wx.request({
 					url: `https://fantasy943.eu.org/access/get_openid?openid=${res.code}`,
 					success(res) {
@@ -170,8 +170,10 @@ Page({
 								console.log('openids', openids)
 								if (openids.includes(openid)) {
 									// 成功
+									wx.hideLoading()
 									callback()
 								} else {
+									wx.hideLoading()
 									_this.setData({
 										show: true
 									})
@@ -179,23 +181,25 @@ Page({
 							},
 							fail(err) {
 								console.log(err)
-							},
-							complete() {
 								wx.hideLoading()
-							}
+							},
+							// complete() {
+							// 	wx.hideLoading()
+							// }
 						})
 					},
 					fail(err) {
 						console.log(err)
-					},
-					complete() {
 						wx.hideLoading()
-					}
+					},
+					// complete() {
+					// 	wx.hideLoading()
+					// }
 				})
 			},
-			complete() {
-				wx.hideLoading()
-			}
+			// complete() {
+			// 	wx.hideLoading()
+			// }
 		})
 	},
 

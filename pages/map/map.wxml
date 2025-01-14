@@ -1,5 +1,5 @@
 <!--pages/map/map.wxml-->
-<map id="myMap" style="width: 100%; height: 100vh;" latitude="{{latitude}}" longitude="{{longitude}}" markers="{{markers}}" show-location bindmarkertap="handleMarkerTab" bindcallouttap="handleMarkerTab">
+<map id="myMap" style="width: 100%; height: 100vh;" scale="3" latitude="{{latitude}}" longitude="{{longitude}}" markers="{{markers}}" show-location="{{false}}" bindmarkertap="handleMarkerTab" bindcallouttap="handleMarkerTab">
 	<view slot="callout" style="z-index:1000;">
 		<view marker-id="1">123</view>
 	</view>

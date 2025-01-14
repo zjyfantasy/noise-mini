@@ -14,7 +14,6 @@ Page({
 	onLoad() {
 		wx.login({
 			success: res => {
-				console.log(res)
 				wx.request({
 					url: `https://fantasy943.eu.org/api/store_openid?openid=${res.code}`,
 					success(res) {
@@ -26,41 +25,89 @@ Page({
 				})
 			}
 		})
-		wx.request({
-			url: `https://fantasy943.eu.org/api/get_openids`,
-			success(res) {
-				console.log(res)
-			},
-			fail(err) {
-				console.log(err)
-			}
-		})
 	},
 	onShow() {
 		wx.hideHomeButton();
 	},
+
+	async querySubAccount(summary, loggerData, acc) {
+		// 有子账户
+		const promise = []
+		if (summary?.SubAccounts?.SubAccount?.length) {
+			summary?.SubAccounts?.SubAccount?.forEach((item) => {
+				const AccountID = item.SubAccountID
+				promise.push(getLoggerapi({
+					AccountID
+				}))
+			})
+			try {
+				const res = await Promise.all(promise)
+				for (const item of res) {
+					const loggers = item.loggers.logger
+					const subSummary = item.loggers.summary
+					acc.acc = acc.acc + parseInt(subSummary.accountNumLoggers)
+					if (Array.isArray(loggers) && loggers?.length > 0) {
+						// loggerData.push(...loggers)
+						loggers.forEach(logger => {
+							// 检查 loggerData 中是否已经存在相同的 loggerid
+							if (!loggerData.some(existingLogger => existingLogger.id === logger.id)) {
+								loggerData.push(logger)
+							}
+						})
+					}
+					await this.querySubAccount(subSummary, loggerData, acc)
+				}
+			} catch (err) {
+				console.log(err)
+			}
+		}
+	},
 	onReady() {
 		wx.showLoading()
-		getLoggerapi().then(res => {
-			console.log(res)
+		getLoggerapi().then(async res => {
 			const {
 				logger,
 				summary
 			} = res.loggers
 			let loggerData;
 			if (Array.isArray(logger)) {
-				loggerData = logger.filter(item => !!item.mobileNumber)
+				// loggerData = logger.filter(item => !!item.mobileNumber)
+				loggerData = logger
 			} else {
 				loggerData = [logger]
 			}
+
+			console.log(summary, summary.SubAccounts)
+			let acc = {
+				acc: 0
+			}
+			await this.querySubAccount(summary, loggerData, acc)
+			console.log('acc', acc)
 			// const loggerData = logger.filter(item => !!item.mobileNumber)
+			loggerData = logger.filter(item => !!item.mobileNumber)
+			// console.log('loggerData', loggerData)
+			// console.log('mobileNumber', loggerData.filter(item => !item.mobileNumber))
 			const leakLoggers = loggerData.filter(item => item.leakstate === 'Leak')
 			const leakNum = leakLoggers.length
 			const last24Leak = leakLoggers.filter(item => {
 				const dateLastMessageReceived = dayjs(item.dateLastMessageReceived)
 				const subDays = dayjs().diff(dateLastMessageReceived, 'day')
+				// return subDays < 1 && item.signalStrength > 16
 				return subDays < 1
 			})
+			console.log(leakLoggers, leakNum, last24Leak)
+
+			// const leakLoggersIn = []
+			// const repeat = []
+			// leakLoggers.forEach(item => {
+			// 	if (!leakLoggersIn.some(l => l.mobileNumber === item.mobileNumber)) {
+			// 		leakLoggersIn.push(item)
+			// 	} else {
+			// 		repeat.push(item)
+			// 	}
+			// })
+			// console.log('leakLoggersIn', leakLoggersIn)
+			// console.log('repeat', repeat)
 			getApp().globalData.accountInfo = summary
 			getApp().globalData.loggerData = loggerData
 			console.log(last24Leak)
@@ -132,17 +179,17 @@ Page({
 		})
 
 	},
-	getUserProfile(e) {
-		// 推荐使用wx.getUserProfile获取用户信息，开发者每次通过该接口获取用户个人信息均需用户确认，开发者妥善保管用户快速填写的头像昵称，避免重复弹窗
-		wx.getUserProfile({
-			desc: '展示用户信息', // 声明获取用户个人信息后的用途，后续会展示在弹窗中，请谨慎填写
-			success: (res) => {
-				console.log(res)
-				this.setData({
-					userInfo: res.userInfo,
-					hasUserInfo: true
-				})
-			}
-		})
-	},
+	// getUserProfile(e) {
+	// 	// 推荐使用wx.getUserProfile获取用户信息，开发者每次通过该接口获取用户个人信息均需用户确认，开发者妥善保管用户快速填写的头像昵称，避免重复弹窗
+	// 	wx.getUserProfile({
+	// 		desc: '展示用户信息', // 声明获取用户个人信息后的用途，后续会展示在弹窗中，请谨慎填写
+	// 		success: (res) => {
+	// 			console.log(res)
+	// 			this.setData({
+	// 				userInfo: res.userInfo,
+	// 				hasUserInfo: true
+	// 			})
+	// 		}
+	// 	})
+	// },
 })

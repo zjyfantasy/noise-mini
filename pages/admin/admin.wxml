@@ -8,4 +8,6 @@
 </mp-cells>
 
 <button class="weui-btn" type="primary" bindtap="add">添加</button>
+<button class="weui-btn" type="warn" bindtap="remove">移除授权</button>
+<button class="weui-btn" type="warn" bindtap="clear">清空白名单</button>
 <button class="exit-btn" type="warn" bindtap="exit">退出登录</button>

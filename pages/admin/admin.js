@@ -28,6 +28,7 @@ Page({
 				icon: 'error',
 				title: '请输入openID'
 			})
+			return
 		}
 		wx.showLoading()
 		wx.request({
@@ -48,6 +49,61 @@ Page({
 							}
 						}
 					})
+				} else {
+					wx.showToast({
+						icon: 'none',
+						title: '添加失败',
+					})
+				}
+			},
+			fail(err) {
+				console.log(err)
+				wx.showToast({
+					icon: 'none',
+					title: '添加失败',
+				})
+			},
+			complete() {
+				wx.hideLoading()
+			}
+		})
+	},
+	remove() {
+		const {
+			value
+		} = this.data
+		console.log(!value)
+		if (!value) {
+			wx.showToast({
+				icon: 'error',
+				title: '请输入openID'
+			})
+			return
+		}
+		wx.showLoading()
+		wx.request({
+			url: `https://fantasy943.eu.org/access/remove_openid?openid=${value}`,
+			success(res) {
+				console.log(res)
+				if (res.data === 'success') {
+					wx.showModal({
+						title: '',
+						content: '删除成功',
+						complete: (res) => {
+							if (res.cancel) {
+
+							}
+
+							if (res.confirm) {
+
+							}
+						}
+					})
+				} else {
+					wx.showToast({
+						icon: 'none',
+						title: '删除失败',
+					})
 				}
 			},
 			fail(err) {
@@ -55,6 +111,53 @@ Page({
 			},
 			complete() {
 				wx.hideLoading()
+			}
+		})
+	},
+	clear() {
+		wx.showModal({
+			title: '提示',
+			content: '确定清空白名单吗？',
+			complete: (res) => {
+				if (res.cancel) {
+
+				}
+
+				if (res.confirm) {
+					wx.showLoading()
+					wx.request({
+						url: `https://fantasy943.eu.org/access/clear_openids`,
+						success(res) {
+							console.log(res)
+							if (res.data === 'openid clear successfully') {
+								wx.showModal({
+									title: '',
+									content: '删除成功',
+									complete: (res) => {
+										if (res.cancel) {
+
+										}
+
+										if (res.confirm) {
+
+										}
+									}
+								})
+							} else {
+								wx.showToast({
+									icon: 'none',
+									title: '删除失败',
+								})
+							}
+						},
+						fail(err) {
+							console.log(err)
+						},
+						complete() {
+							wx.hideLoading()
+						}
+					})
+				}
 			}
 		})
 	},

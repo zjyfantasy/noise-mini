@@ -55,6 +55,7 @@ Page({
 				title: item.siteId,
 				width: 16,
 				height: 16,
+				joinCluster: true,
 				iconPath,
 				callout: {
 					content: item.siteId,

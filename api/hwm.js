@@ -13,7 +13,7 @@ export const getLoggerapi = (data) => {
 		userInfo
 	} = getApp().globalData
 	return request({
-		url: `datagate/api/loggerapi.ashx?username=${userInfo?.username}&password=${userInfo?.password}&software=HWM+Test&leakstatus=1`,
+		url: `datagate/api/loggerapi.ashx?username=${userInfo?.username}&password=${userInfo?.password}&software=HWM+Test&leakstatus=1&ShowSubAccounts=true`,
 		method: 'GET',
 		data
 	})
