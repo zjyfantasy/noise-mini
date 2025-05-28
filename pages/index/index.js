@@ -12,19 +12,22 @@ Page({
 		overdueTaskOption2: null
 	},
 	onLoad() {
-		wx.login({
-			success: res => {
-				wx.request({
-					url: `https://fantasy943.eu.org/api/store_openid?openid=${res.code}`,
-					success(res) {
-						console.log(res)
-					},
-					fail(err) {
-						console.log(err)
-					}
-				})
-			}
-		})
+		// const {
+		// 	API_URL
+		// } = getApp().globalData
+		// wx.login({
+		// 	success: res => {
+		// 		wx.request({
+		// 			url: `${API_URL}/store_openid?openid=${res.code}`,
+		// 			success(res) {
+		// 				console.log(res)
+		// 			},
+		// 			fail(err) {
+		// 				console.log(err)
+		// 			}
+		// 		})
+		// 	}
+		// })
 	},
 	onShow() {
 		wx.hideHomeButton();
@@ -82,9 +85,9 @@ Page({
 				acc: 0
 			}
 			await this.querySubAccount(summary, loggerData, acc)
-			console.log('acc', acc)
+			console.log('acc', acc,logger)
 			// const loggerData = logger.filter(item => !!item.mobileNumber)
-			loggerData = logger.filter(item => !!item.mobileNumber)
+			loggerData = loggerData.filter(item => !!item.mobileNumber)
 			// console.log('loggerData', loggerData)
 			// console.log('mobileNumber', loggerData.filter(item => !item.mobileNumber))
 			const leakLoggers = loggerData.filter(item => item.leakstate === 'Leak')

@@ -35,9 +35,9 @@ Page({
 	handleIPChange(e) {
 		const value = e.detail.value
 		if (value === '0') {
-			getApp().globalData.BASE_URL = 'https://t-vr.biaddti.com/v2'
+			getApp().globalData.BASE_URL = 'https://zaoyinjiance.weimeigu.com.cn/v2'
 		} else if (value === '1') {
-			getApp().globalData.BASE_URL = 'https://www.en-education.eu.org/v3'
+			getApp().globalData.BASE_URL = 'https://zaoyinjiance.weimeigu.com.cn/v3'
 		}
 		this.setData({
 			index: value
@@ -71,12 +71,13 @@ Page({
 					})
 					return
 				}
-				this.auth(this.loginFc)
+				this.auth(() => this.loginFc())
 			}
 		})
 	},
 
 	loginFc() {
+		console.log(this.data.formData)
 		const {
 			username,
 			password
@@ -149,24 +150,28 @@ Page({
 		// })
 	},
 	auth(callback) {
+		const {
+			API_URL
+		} = getApp().globalData
 		wx.showLoading()
 		const _this = this
 		wx.login({
 			success: res => {
 				console.log(res)
 				wx.request({
-					url: `https://fantasy943.eu.org/access/get_openid?openid=${res.code}`,
+					url: `${API_URL}/get_openid?openid=${res.code}`,
 					success(res) {
-						const openid = res.data
+						const openid = res.data.data
 						console.log('openid', openid)
 						_this.setData({
 							openid
 						})
 						wx.showLoading()
 						wx.request({
-							url: `https://fantasy943.eu.org/access/get_openids`,
+							url: `${API_URL}/get_openids`,
 							success(res2) {
-								const openids = res2.data
+								const data = res2.data.data
+								const openids = data.map(item => item.openId)
 								console.log('openids', openids)
 								if (openids.includes(openid)) {
 									// 成功
@@ -183,9 +188,9 @@ Page({
 								console.log(err)
 								wx.hideLoading()
 							},
-							// complete() {
-							// 	wx.hideLoading()
-							// }
+							complete() {
+								wx.hideLoading()
+							}
 						})
 					},
 					fail(err) {

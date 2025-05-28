@@ -12,6 +12,7 @@ App({
 		// 	// password: 'shengyikj2023!'
 		// },
 		// BASE_URL: 'https://www.en-education.eu.org/v2'
-		BASE_URL: 'https://t-vr.biaddti.com/v2'
+		BASE_URL: 'https://zaoyinjiance.weimeigu.com.cn/v2',
+		API_URL: 'https://zaoyinjiance.weimeigu.com.cn',
 	}
 })

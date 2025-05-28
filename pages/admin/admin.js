@@ -23,6 +23,9 @@ Page({
 		const {
 			value
 		} = this.data
+		const {
+			API_URL
+		} = getApp().globalData
 		if (!value) {
 			wx.showToast({
 				icon: 'error',
@@ -32,10 +35,9 @@ Page({
 		}
 		wx.showLoading()
 		wx.request({
-			url: `https://fantasy943.eu.org/access/store_openid?openid=${value}`,
+			url: `${API_URL}/store_openid?openid=${value}`,
 			success(res) {
-				console.log(res)
-				if (res.data === 'success') {
+				if (res.data.code === 0) {
 					wx.showModal({
 						title: '',
 						content: '添加成功',
@@ -52,7 +54,7 @@ Page({
 				} else {
 					wx.showToast({
 						icon: 'none',
-						title: '添加失败',
+						title: res.data.message,
 					})
 				}
 			},
@@ -72,7 +74,9 @@ Page({
 		const {
 			value
 		} = this.data
-		console.log(!value)
+		const {
+			API_URL
+		} = getApp().globalData
 		if (!value) {
 			wx.showToast({
 				icon: 'error',
@@ -82,10 +86,10 @@ Page({
 		}
 		wx.showLoading()
 		wx.request({
-			url: `https://fantasy943.eu.org/access/remove_openid?openid=${value}`,
+			url: `${API_URL}/remove_openid?openid=${value}`,
 			success(res) {
 				console.log(res)
-				if (res.data === 'success') {
+				if (res.data.code === 0) {
 					wx.showModal({
 						title: '',
 						content: '删除成功',
@@ -115,6 +119,9 @@ Page({
 		})
 	},
 	clear() {
+		const {
+			API_URL
+		} = getApp().globalData
 		wx.showModal({
 			title: '提示',
 			content: '确定清空白名单吗？',
@@ -126,10 +133,10 @@ Page({
 				if (res.confirm) {
 					wx.showLoading()
 					wx.request({
-						url: `https://fantasy943.eu.org/access/clear_openids`,
+						url: `${API_URL}/clear_openids`,
 						success(res) {
 							console.log(res)
-							if (res.data === 'openid clear successfully') {
+							if (res.data.code === 0) {
 								wx.showModal({
 									title: '',
 									content: '删除成功',
