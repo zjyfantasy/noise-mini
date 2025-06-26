@@ -1,8 +1,8 @@
 <!--pages/login/login.wxml-->
 <view class="container">
 	<view class="logo_wrap">
-		<image class="logo1" src="https://t-vr.biaddti.com/v2/Datagate/Assets/Logos/logo.png" mode="aspectFit" />
-		<image class="logo2" src="https://t-vr.biaddti.com/v2/Datagate/Assets/Logos/almoslogo.GIF" mode="aspectFit" />
+		<image class="logo1" src="./logo.png" mode="aspectFit" />
+		<image class="logo2" src="./almoslogo.GIF" mode="aspectFit" />
 	</view>
 	<input />
 
